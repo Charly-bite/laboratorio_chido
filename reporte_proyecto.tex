@@ -1,0 +1,193 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+% \usepackage[spanish]{babel} % Desactivado por compatibilidad
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% Configuración de márgenes y diseño
+\geometry{margin=2.5cm}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textbf{Laboratorio de Contraseñas}}
+\lhead{Reporte Técnico}
+\rfoot{Página \thepage}
+
+% Colores para código
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+% Portada Personalizada
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    
+    {\Huge \textbf{Laboratorio de Contraseñas}}
+    
+    \vspace{0.5cm}
+    {\Large \textit{"El Hacker Amable"}}
+    
+    \vspace{1.5cm}
+    
+    \textbf{Reporte Técnico Completo}
+    
+    \vspace{1.5cm}
+    
+    \textbf{Equipo de Desarrollo:}
+    \begin{itemize}
+        \item Persona 1: Base de Datos
+        \item Persona 2: Evaluador de Seguridad
+        \item Persona 3: Almacenamiento
+        \item Persona 4: Integración e Interfaz
+    \end{itemize}
+    
+    \vfill
+    
+    \vspace{0.8cm}
+    
+    {\large \today}
+    
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Resumen Ejecutivo}
+El \textbf{Laboratorio de Contraseñas} es una herramienta educativa diseñada para analizar, evaluar y mejorar la seguridad de las contraseñas de los usuarios. A través de un enfoque amigable y un lenguaje coloquial ("chido"), buscamos concientizar sobre la importancia de la ciberseguridad sin abrumar con tecnicismos. El sistema no solo detecta contraseñas débiles, sino que ofrece métricas avanzadas como la entropía y herramientas proactivas como un generador de claves seguras.
+
+\section{Arquitectura del Sistema}
+El proyecto está construido en Python y sigue una arquitectura modular dividida en cuatro componentes principales, correspondientes a los roles del equipo.
+
+\subsection{1. Base de Datos y Hashing (Persona 1)}
+\textbf{Archivo:} \texttt{database.py}
+
+Este módulo actúa como la primera línea de defensa. Su función principal es identificar contraseñas que ya han sido comprometidas o que son extremadamente comunes.
+
+\begin{itemize}
+    \item \textbf{Lista Negra Ampliada:} Contiene una extensa base de datos de contraseñas inseguras, incluyendo patrones numéricos ("123456"), secuencias de teclado ("qwerty", "asdf") y términos comunes en español ("hola", "teamo", "futbol").
+    \item \textbf{Seguridad por Hashing:} Para proteger la integridad del análisis, las contraseñas no se almacenan en texto plano. Se utiliza el algoritmo \textbf{SHA-256} para generar una huella digital única (hash) de cada contraseña.
+\end{itemize}
+
+\subsection{2. Sistema de Evaluación (Persona 2)}
+\textbf{Archivo:} \texttt{evaluator.py}
+
+Es el motor analítico del sistema. Evalúa la fortaleza de una contraseña basándose en reglas heurísticas y matemáticas.
+
+\begin{itemize}
+    \item \textbf{Reglas de Puntuación:}
+    \begin{itemize}
+        \item Longitud $\ge$ 8 caracteres: +20 puntos.
+        \item Uso de números: +15 puntos.
+        \item Uso de símbolos especiales: +25 puntos.
+        \item Uso de mayúsculas/minúsculas: +25 puntos.
+    \end{itemize}
+    \item \textbf{Penalización Total:} Si el hash de la contraseña coincide con alguno en la base de datos de \texttt{database.py}, la puntuación se reduce automáticamente a 0.
+\end{itemize}
+
+\subsection{3. Almacenamiento y Reportes (Persona 3)}
+\textbf{Archivo:} \texttt{storage.py}
+
+Gestiona la persistencia temporal y la generación de informes.
+
+\begin{itemize}
+    \item \textbf{Bitácora en Memoria:} Mantiene un registro de todas las contraseñas analizadas durante la sesión, clasificándolas en "Débiles" y "Seguras".
+    \item \textbf{Estadísticas en Tiempo Real:} Calcula promedios de puntuación y conteos de vulnerabilidades encontradas.
+    \item \textbf{Exportación de Datos:} Permite generar un archivo físico (\texttt{reporte\_seguridad.txt}) con el resumen de la sesión para su posterior revisión.
+\end{itemize}
+
+\subsection{4. Interfaz y Generador (Persona 4)}
+\textbf{Archivos:} \texttt{password\_lab.py} y \texttt{generator.py}
+
+Es el punto de entrada para el usuario y el orquestador de todos los módulos.
+
+\begin{itemize}
+    \item \textbf{CLI Interactiva:} Un menú de consola intuitivo que guía al usuario a través de las diferentes funcionalidades.
+    \item \textbf{Integración Modular:} Coordina las llamadas a la base de datos, el evaluador y el almacenamiento.
+    \item \textbf{Generador de Contraseñas:} Un módulo adicional que crea contraseñas robustas utilizando una mezcla criptográficamente segura de caracteres.
+\end{itemize}
+
+\section{Características Avanzadas}
+Para llevar el proyecto al siguiente nivel, se implementaron funcionalidades técnicas avanzadas:
+
+\subsection{Cálculo de Entropía}
+Más allá de reglas simples, implementamos el cálculo de la \textbf{Entropía de Shannon}. Esta métrica mide la incertidumbre o "sorpresa" de la contraseña en bits.
+\[ H = L \times \log_2(N) \]
+Donde $L$ es la longitud de la contraseña y $N$ es el tamaño del conjunto de caracteres posibles. Una entropía alta significa que la contraseña es matemáticamente difícil de adivinar por fuerza bruta.
+
+\subsection{Generación Automática}
+El sistema incluye un generador que asegura la inclusión de todos los tipos de caracteres necesarios (mayúsculas, minúsculas, números, símbolos) para garantizar una alta entropía desde el origen.
+
+\section{Análisis Visual de Datos}
+Para comprender mejor el comportamiento de las contraseñas analizadas, hemos generado gráficos representativos basados en datos simulados del laboratorio.
+
+\subsection{Distribución de Seguridad}
+El siguiente gráfico muestra la proporción de contraseñas clasificadas por su nivel de seguridad. Como se observa, una gran parte de las contraseñas probadas suelen ser débiles o comunes.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{grafico_distribucion.png}
+    \caption{Distribución de tipos de contraseñas analizadas.}
+    \label{fig:distribucion}
+\end{figure}
+
+\subsection{Comparativa de Entropía}
+La entropía es una métrica clave. En este gráfico comparamos cómo aumenta la entropía (bits) a medida que la contraseña se vuelve más compleja (longitud, variedad de caracteres).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{grafico_entropia.png}
+    \caption{Entropía estimada según la complejidad de la contraseña.}
+    \label{fig:entropia}
+\end{figure}
+
+\section{Guía de Usuario}
+
+\subsection{Inicio}
+Para iniciar el laboratorio, abra una terminal en la carpeta del proyecto y ejecute:
+\begin{lstlisting}[language=bash]
+python3 password_lab.py
+\end{lstlisting}
+
+\subsection{Menú Principal}
+Verá las siguientes opciones:
+\begin{enumerate}
+    \item \textbf{Probar contraseña:} Ingrese una clave para ver su puntaje, entropía y si es común.
+    \item \textbf{Ver historial:} Muestra las contraseñas analizadas en la sesión actual.
+    \item \textbf{Ver estadísticas:} Resumen numérico del rendimiento de sus contraseñas.
+    \item \textbf{Generar contraseña:} Crea una clave segura automáticamente.
+    \item \textbf{Exportar reporte:} Guarda los resultados en un archivo de texto.
+    \item \textbf{Salir:} Cierra el programa.
+\end{enumerate}
+
+
+
+\end{document}

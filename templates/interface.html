@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="role-header">
+    <h2>Rol 4: Interfaz e Integración</h2>
+    <p class="role-desc">
+        El director de orquesta. Conectamos el Frontend (lo que ves) con el Backend (Python) mediante una API.
+    </p>
+</div>
+
+<div class="split-layout">
+    <div class="info-column">
+        <div class="feature-list">
+            <h3>Arquitectura:</h3>
+            <ul>
+                <li><strong>Flask:</strong> Recibe tu petición HTTP.</li>
+                <li><strong>Orquestación:</strong> Llama a DB, Evaluador y Storage en orden.</li>
+                <li><strong>Respuesta:</strong> Te devuelve un JSON con los resultados.</li>
+            </ul>
+        </div>
+
+        <div class="code-section">
+            <h3>Código Real (app.py):</h3>
+            <pre><code class="language-python">@app.route('/api/evaluar', methods=['POST'])
+def api_evaluar():
+    # 1. Recibir
+    data = request.get_json()
+    
+    # 2. Procesar (Llamar a otros roles)
+    puntaje = evaluar_password(data['pwd'])
+    
+    # 3. Responder
+    return jsonify({'puntaje': puntaje})
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="demo-column">
+        <div class="demo-card">
+            <h3> Demo: Flujo de Datos</h3>
+            <p style="font-size: 0.9rem; color: #94a3b8;">
+                Haz clic para ver cómo viaja tu contraseña por el sistema.
+            </p>
+
+            <button id="btn-flow-start" style="width: 100%; margin-top: 15px;">Iniciar Petición</button>
+
+            <div class="flow-diagram">
+                <div class="flow-line"></div>
+                <div id="packet" class="flow-packet"></div>
+
+                <div id="node-user" class="flow-node">Usuario</div>
+                <div id="node-api" class="flow-node">API Flask</div>
+                <div id="node-logic" class="flow-node">Lógica</div>
+                <div id="node-db" class="flow-node">Base Datos</div>
+            </div>
+
+            <div id="flow-status"
+                style="text-align: center; font-size: 0.9rem; color: var(--accent-primary); min-height: 20px;">
+                Esperando...
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

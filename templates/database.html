@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="role-header">
+    <h2>Rol 1: Base de Datos y Hashing</h2>
+    <p class="role-desc">
+        El guardián de los secretos. Aquí transformamos tu contraseña en algo ilegible y verificamos que no esté en
+        nuestra lista negra.
+    </p>
+</div>
+
+<div class="split-layout">
+    <!-- Columna Izquierda: Explicación y Código -->
+    <div class="info-column">
+        <div class="feature-list">
+            <h3>Responsabilidades:</h3>
+            <ul>
+                <li><strong>Lista Negra:</strong> Bloqueamos contraseñas comunes como "123456".</li>
+                <li><strong>Hashing SHA-256:</strong> Convertimos texto plano en una huella digital única.</li>
+            </ul>
+        </div>
+
+        <div class="code-section">
+            <h3>Código Real (database.py):</h3>
+            <pre><code class="language-python">import hashlib
+
+# Lista de contraseñas prohibidas
+contraseñas_comunes = [
+    "123456", "password", "qwerty", ...
+]
+
+def hashear_contraseña(contraseña):
+    # SHA-256 en acción
+    return hashlib.sha256(contraseña.encode()).hexdigest()
+            </code></pre>
+        </div>
+    </div>
+
+    <!-- Columna Derecha: Demo Interactiva -->
+    <div class="demo-column">
+        <div class="demo-card">
+            <h3> Demo en Vivo: El Hasheador</h3>
+            <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px;">
+                Escribe abajo y mira cómo cambia el hash instantáneamente. ¡Intenta escribir "123456"!
+            </p>
+
+            <input type="text" id="db-demo-input" class="demo-input" placeholder="Escribe algo..." autocomplete="off">
+
+            <div id="db-warning" class="hidden" style="color: var(--danger); margin-bottom: 10px; font-weight: bold;">
+                ⚠️ ¡ALERTA! Contraseña común detectada en la Lista Negra.
+            </div>
+
+            <label style="font-size: 0.8rem; color: #64748b;">Hash SHA-256 Resultante:</label>
+            <div id="db-hash-output" class="hash-output">
+                (Esperando entrada...)
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

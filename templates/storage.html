@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="role-header">
+    <h2>Rol 3: Almacenamiento y Reportes</h2>
+    <p class="role-desc">
+        La memoria del sistema. Guardamos temporalmente los resultados para darte estadísticas al final.
+    </p>
+</div>
+
+<div class="split-layout">
+    <div class="info-column">
+        <div class="feature-list">
+            <h3>Funciones:</h3>
+            <ul>
+                <li>Clasificar en "Encontradas" (Débiles) y "No Encontradas" (Fuertes).</li>
+                <li>Generar reportes de texto.</li>
+            </ul>
+        </div>
+
+        <div class="code-section">
+            <h3>Código Real (storage.py):</h3>
+            <pre><code class="language-python">contraseñas_encontradas = []
+
+def agregar_resultado(pwd, puntaje):
+    registro = {
+        "password": pwd,
+        "puntaje": puntaje,
+        "fecha": datetime.now()
+    }
+    contraseñas_encontradas.append(registro)
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="demo-column">
+        <div class="demo-card">
+            <h3>💾 Demo: Simulador de Log</h3>
+            <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px;">
+                Simula que guardas contraseñas en la memoria RAM del servidor.
+            </p>
+
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="storage-input" class="demo-input" placeholder="Dato a guardar..."
+                    style="margin-bottom: 0;">
+                <button id="btn-save-log" style="padding: 0 20px; height: 42px; margin-top: 0;">Guardar</button>
+            </div>
+
+            <table class="log-table">
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Dato</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="log-body">
+                    <!-- Filas dinámicas -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

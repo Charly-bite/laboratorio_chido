@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="role-header">
+    <h2>Rol 2: Sistema de Evaluación</h2>
+    <p class="role-desc">
+        El juez imparcial. Analizamos matemáticamente tu contraseña para decirte qué tan difícil es de adivinar.
+    </p>
+</div>
+
+<div class="split-layout">
+    <div class="info-column">
+        <div class="feature-list">
+            <h3>Reglas de Oro:</h3>
+            <ul>
+                <li>Más de 8 caracteres (+20 pts).</li>
+                <li>Números y Símbolos (+40 pts).</li>
+                <li><strong>Entropía:</strong> Medimos el "caos" en bits.</li>
+            </ul>
+        </div>
+
+        <div class="code-section">
+            <h3>Código Real (evaluator.py):</h3>
+            <pre><code class="language-python">def calcular_puntaje(pwd):
+    puntaje = 0
+    # Regla 1: Longitud
+    if len(pwd) >= 8: 
+        puntaje += 20
+    # Regla 2: Caracteres
+    if any(c in "!@#$%" for c in pwd):
+        puntaje += 25
+    return puntaje
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="demo-column">
+        <div class="demo-card">
+            <h3> Demo: Checklist de Seguridad</h3>
+            <input type="text" id="eval-demo-input" class="demo-input" placeholder="Prueba una contraseña..."
+                autocomplete="off">
+
+            <div class="checklist">
+                <div id="check-len" class="checklist-item">📏 Mínimo 8 caracteres</div>
+                <div id="check-num" class="checklist-item">🔢 Contiene números</div>
+                <div id="check-sym" class="checklist-item">🔣 Contiene símbolos (!@#$...)</div>
+                <div id="check-upper" class="checklist-item">🔠 Mayúsculas y Minúsculas</div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label style="font-size: 0.8rem; color: #64748b;">Entropía Estimada:</label>
+                <div style="background: #334155; height: 10px; border-radius: 5px; margin-top: 5px; overflow: hidden;">
+                    <div id="entropy-bar"
+                        style="width: 0%; height: 100%; background: var(--accent-secondary); transition: width 0.5s;">
+                    </div>
+                </div>
+                <div id="entropy-text"
+                    style="text-align: right; font-size: 0.8rem; margin-top: 5px; color: var(--accent-primary);">0 bits
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

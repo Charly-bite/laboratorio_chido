@@ -1,0 +1,307 @@
+{
+  "proyecto": {
+    "nombre": "Laboratorio de Contraseñas",
+    "archivo_principal": "password_lab.py",
+    "equipo": {
+      "cantidad_personas": 4,
+      "nivel": "Programación I"
+    },
+    "duracion_estimada": "6 dias"
+  },
+  "distribucion_trabajo": [
+    {
+      "persona": 1,
+      "rol": "Base de Datos y Sistema de Hashing",
+      "tiempo_estimado": "2-3 dias",
+      "responsabilidades": [
+        "Crear la lista de 20+ contraseñas débiles comunes",
+        "Usar el recurso de NordPass para obtener contraseñas comunes",
+        "Implementar la función de hashing SHA-256",
+        "Crear el diccionario con pares {password, hash}",
+        "Documentar cómo usar las funciones de hash para integración"
+      ],
+      "entregables": {
+        "archivo": "database.py",
+        "componentes": [
+          "Lista WEAK_PASSWORDS con diccionarios",
+          "Función hash_password(password)"
+        ]
+      },
+      "ejemplo_estructura": {
+        "weak_passwords": [
+          {
+            "password": "123456",
+            "hash": "a591a6d40bf420404a011733cfb7b190d62c6"
+          },
+          {
+            "password": "password",
+            "hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+          }
+        ]
+      }
+    },
+    {
+      "persona": 2,
+      "rol": "Sistema de Evaluación de Contraseñas",
+      "tiempo_estimado": "3-4 dias",
+      "responsabilidades": [
+        "Crear la función que evalúa el puntaje de seguridad",
+        "Implementar las reglas de seguridad (longitud ≥8, números, caracteres especiales)",
+        "Definir el sistema de puntuación",
+        "Crear función que busca el hash en la lista de contraseñas débiles"
+      ],
+      "entregables": {
+        "archivo": "evaluator.py",
+        "componentes": [
+          "Función calcular_puntaje(password)",
+          "Función es_debil(hash_password, lista_debil)",
+          "Función evaluar_password(password)"
+        ]
+      },
+      "sistema_puntuacion_sugerido": {
+        "longitud_8_o_mas": 20,
+        "contiene_numeros": 15,
+        "contiene_especiales": 25,
+        "contiene_mayusculas": 15,
+        "contiene_minusculas": 10,
+        "puntaje_maximo": 85
+      },
+      "reglas_evaluacion": [
+        "Verificar longitud >= 8 caracteres",
+        "Verificar presencia de números",
+        "Verificar presencia de caracteres especiales (!@#$%^&*)",
+        "Verificar presencia de mayúsculas",
+        "Verificar presencia de minúsculas"
+      ]
+    },
+    {
+      "persona": 3,
+      "rol": "Sistema de Almacenamiento y Estadísticas",
+      "tiempo_estimado": "2-3 dias",
+      "responsabilidades": [
+        "Crear las estructuras para almacenar contraseñas analizadas",
+        "Crear dos listas/diccionarios: encontradas y no encontradas (con puntajes)",
+        "Implementar función para mostrar contraseñas analizadas",
+        "Crear función de estadísticas (conteo, promedios)"
+      ],
+      "entregables": {
+        "archivo": "storage.py",
+        "componentes": [
+          "Lista passwords_found = []",
+          "Lista passwords_not_found = []",
+          "Función agregar_resultado(password, puntaje, es_debil)",
+          "Función mostrar_analizadas()",
+          "Función mostrar_estadisticas()"
+        ]
+      },
+      "estructura_datos": {
+        "passwords_found": [
+          {
+            "password": "123456",
+            "hash": "hash_value",
+            "puntaje": 15,
+            "timestamp": "fecha_analisis"
+          }
+        ],
+        "passwords_not_found": [
+          {
+            "password": "MyP@ssw0rd!",
+            "hash": "hash_value",
+            "puntaje": 85,
+            "timestamp": "fecha_analisis"
+          }
+        ]
+      },
+      "estadisticas_requeridas": [
+        "Cantidad total de contraseñas analizadas",
+        "Cantidad de contraseñas débiles encontradas",
+        "Promedio de puntuación de contraseñas débiles",
+        "Cantidad de contraseñas seguras",
+        "Promedio de puntuación de contraseñas seguras"
+      ]
+    },
+    {
+      "persona": 4,
+      "rol": "Interfaz y Menú Principal (Integrador)",
+      "tiempo_estimado": "2-3 dias",
+      "responsabilidades": [
+        "Crear la bienvenida con nombre de usuario y mensaje tipo hacker",
+        "Implementar el menú principal con ciclo while",
+        "Integrar todas las funciones de los demás compañeros",
+        "Manejar el flujo del programa",
+        "Crear el archivo principal password_lab.py"
+      ],
+      "entregables": {
+        "archivo": "password_lab.py",
+        "componentes": [
+          "Función bienvenida()",
+          "Función menu_principal()",
+          "Integración de todos los módulos",
+          "Manejo del ciclo while principal"
+        ]
+      },
+      "menu_opciones": [
+        {
+          "opcion": 1,
+          "descripcion": "Evaluar una contraseña",
+          "accion": "Llamar a evaluar_password() del módulo evaluator"
+        },
+        {
+          "opcion": 2,
+          "descripcion": "Ver contraseñas analizadas",
+          "accion": "Llamar a mostrar_analizadas() del módulo storage"
+        },
+        {
+          "opcion": 3,
+          "descripcion": "Mostrar estadísticas",
+          "accion": "Llamar a mostrar_estadisticas() del módulo storage"
+        },
+        {
+          "opcion": 4,
+          "descripcion": "Salir",
+          "accion": "Terminar el ciclo while y cerrar programa"
+        }
+      ],
+      "importaciones_necesarias": [
+        "from database import WEAK_PASSWORDS, hash_password",
+        "from evaluator import evaluar_password",
+        "from storage import mostrar_analizadas, mostrar_estadisticas"
+      ]
+    }
+  ],
+  "cronograma": {
+    "fase_1": {
+      "dias": "1-3",
+      "descripcion": "Todos trabajan en paralelo en sus módulos",
+      "actividades": [
+        "Persona 1: Desarrollar database.py",
+        "Persona 2: Desarrollar evaluator.py",
+        "Persona 3: Desarrollar storage.py",
+        "Persona 4: Diseñar interfaz y estructura del menú"
+      ]
+    },
+    "fase_2": {
+      "dias": "4",
+      "descripcion": "Integración",
+      "actividades": [
+        "Persona 4 integra todos los módulos",
+        "Personas 1, 2 y 3 ayudan con pruebas",
+        "Resolver conflictos de integración"
+      ]
+    },
+    "fase_3": {
+      "dias": "5",
+      "descripcion": "Pruebas y ajustes",
+      "actividades": [
+        "Pruebas completas del sistema",
+        "Corrección de errores",
+        "Optimización del código"
+      ]
+    },
+    "fase_4": {
+      "dias": "6",
+      "descripcion": "Documentación y presentación",
+      "actividades": [
+        "Preparar presentación PowerPoint/PDF (todos)",
+        "Documentar el código",
+        "Preparar demostración"
+      ]
+    }
+  },
+  "estructura_proyecto": {
+    "directorio_raiz": "proyecto_final",
+    "archivos": [
+      {
+        "nombre": "password_lab.py",
+        "responsable": "Persona 4",
+        "descripcion": "Archivo principal del programa"
+      },
+      {
+        "nombre": "database.py",
+        "responsable": "Persona 1",
+        "descripcion": "Base de datos de contraseñas débiles y funciones de hash"
+      },
+      {
+        "nombre": "evaluator.py",
+        "responsable": "Persona 2",
+        "descripcion": "Sistema de evaluación y puntuación"
+      },
+      {
+        "nombre": "storage.py",
+        "responsable": "Persona 3",
+        "descripcion": "Almacenamiento y estadísticas"
+      },
+      {
+        "nombre": "presentacion.pptx",
+        "responsable": "Todos",
+        "descripcion": "Presentación del proyecto"
+      }
+    ]
+  },
+  "tips_integracion": [
+    "Acordar nombres de funciones y variables antes de empezar",
+    "Cada persona debe probar su módulo individualmente",
+    "Usar comentarios para explicar el código",
+    "La Persona 4 debe comunicarse constantemente con el equipo",
+    "Usar git/GitHub para compartir código (opcional pero recomendado)",
+    "Hacer reuniones diarias breves para sincronización"
+  ],
+  "recursos": {
+    "contraseñas_comunes": "https://nordpass.com/es/most-common-passwords-list/",
+    "implementacion_hash": "https://github.com/patitoweb/herramientas-proyecto-final/blob/master/hash.py"
+  },
+  "formato_icasual": {
+    "descripcion": "Guía para aplicar un formato 'icasual' (informal/cercano) al código y comentarios, tomando inspiración del estilo en `database.py`.",
+    "reglas": [
+      "Usar comentarios en español coloquial y amistoso (p. ej. 'chida', 'esta chida').",
+      "Mantener nombres de variables claros pero permitir pequeñas contracciones legibles (ej. `contraseña`, `password_hash`).",
+      "Agregar pequeñas salidas impresas amistosas para el usuario durante pruebas (p. ej. `print` con tono casual).",
+      "Evitar lenguaje ofensivo; mantener tono accesible y respetuoso.",
+      "Incluir un breve ejemplo antes/después que muestre cómo transformar un comentario técnico a un comentario icasual."
+    ],
+    "ejemplo": {
+      "antes": "# Función para calcular el hash SHA-256 de la contraseña",
+      "despues": "# Calcula el hash SHA-256 de la contraseña (oye, esto evita que cualquiera vea tu clave :))"
+    }
+  },
+  "requisitos_tecnicos": {
+    "lenguaje": "Python 3.x",
+    "librerias_necesarias": [
+      "hashlib (incluida en Python)",
+      "datetime (opcional, para timestamps)"
+    ],
+    "nivel_dificultad": "Principiante-Intermedio"
+  },
+  "criterios_evaluacion": {
+    "codigo_funcional": "40%",
+    "trabajo_en_equipo": "20%",
+    "presentacion": "20%",
+    "documentacion": "10%",
+    "creatividad": "10%"
+  },
+  "mejoras_futuras": {
+    "descripcion": "Ideas para llevar el laboratorio al siguiente nivel en futuras versiones.",
+    "ideas": [
+      {
+        "titulo": "Integración con Have I Been Pwned",
+        "descripcion": "Usar la API de HIBP para verificar si la contraseña ha sido filtrada en brechas reales."
+      },
+      {
+        "titulo": "Cálculo de Entropía Real",
+        "descripcion": "Implementar fórmula matemática de entropía (bits de seguridad) en lugar de reglas heurísticas simples."
+      },
+      {
+        "titulo": "Interfaz Gráfica (GUI)",
+        "descripcion": "Crear una interfaz visual con Tkinter o PyQt para hacerlo más atractivo."
+      },
+      {
+        "titulo": "Generador de Contraseñas",
+        "descripcion": "Agregar una opción para que el programa sugiera una contraseña segura basada en los criterios."
+      },
+      {
+        "titulo": "Exportación de Reportes",
+        "descripcion": "Permitir guardar el historial de análisis en un archivo PDF o CSV."
+      }
+    ]
+  }
+}

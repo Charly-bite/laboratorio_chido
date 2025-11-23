@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card input-section">
+    <label for="password-input">Prueba tu contraseña:</label>
+    <div class="input-group">
+        <input type="text" id="password-input" placeholder="Escribe aquí tu secreto..." autocomplete="off">
+        <button id="check-btn">Analizar</button>
+    </div>
+    <div class="generator-link">
+        <p>¿Sin ideas? <a href="#" id="generate-btn">Generar una segura</a></p>
+    </div>
+</div>
+
+<div id="results-section" class="hidden">
+    <div class="card result-card">
+        <div class="score-circle">
+            <span id="score-value">0</span>
+            <span class="score-label">Puntos</span>
+        </div>
+        <div class="details">
+            <h2 id="feedback-text">...</h2>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="label">Entropía:</span>
+                    <span class="value" id="entropy-value">0 bits</span>
+                </div>
+                <div class="stat-item">
+                    <span class="label">Estado:</span>
+                    <span class="value" id="status-value">Desconocido</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

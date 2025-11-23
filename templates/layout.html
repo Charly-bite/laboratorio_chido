@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio de Contraseñas | El Hacker Amable</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/" style="text-decoration: none; color: inherit;">Laboratorio de Contraseñas</a></h1>
+            <p class="subtitle">"El Hacker Amable"</p>
+
+            <nav class="main-nav">
+                <a href="/">Inicio</a>
+                <a href="/database">Base de Datos</a>
+                <a href="/evaluator">Evaluador</a>
+                <a href="/storage">Almacenamiento</a>
+                <a href="/interface">Interfaz</a>
+            </nav>
+        </header>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <p>---Creado con ❤️ y ☕ por Carlos A. // Dulce A. // Daniel L. // Fernando P.---</p>
+
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}?v=3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+
+</html>
