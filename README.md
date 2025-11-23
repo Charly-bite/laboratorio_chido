@@ -184,27 +184,16 @@ Donde:
 
 Creado con ❤️ y ☕ por:
 
-- **Carlos A.** - Base de Datos y Hashing
+- **Carlos A.** - Interfaz e Integración
 - **Dulce A.** - Sistema de Evaluación
 - **Daniel L.** - Almacenamiento y Reportes
-- **Fernando P.** - Interfaz e Integración
+- **Fernando P.** - Base de Datos y Hashing
 
 ---
 
 ## 📄 Licencia
 
 Este proyecto fue desarrollado como parte del curso de Programación I.
-
----
-
-## 🔮 Mejoras Futuras
-
-- [ ] Integración con API de "Have I Been Pwned"
-- [ ] Autenticación de usuarios
-- [ ] Base de datos persistente (SQLite)
-- [ ] Exportación de reportes en PDF
-- [ ] Modo oscuro/claro
-- [ ] Internacionalización (i18n)
 
 ---
 
